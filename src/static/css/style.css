@@ -1,12 +1,8 @@
-/*
-    DEMO STYLE
-*/
-
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: #fafafa;
+    background: black;
 }
 
 a,
@@ -69,11 +65,53 @@ a:focus {
     background-color: rgba(0,0,0,0.6);
 }
 
-.img-thumbnail {
+#sidebar .img-thumbnail {
     border-color: rgba(0,0,0,0.4);
     background-color: rgba(0,0,0,0.3);
 }
 
+/* ---------------------------------------------------
+    SIDEBAR CONTROL BUTTON STYLE
+----------------------------------------------------- */
+
+#bt-container {
+    position: fixed;
+    top: 50%;
+    left: 250px;
+    transition: all 0.3s;
+    z-index: 998;
+}
+
+#bt-container.active {
+    left: 0px;
+}
+
+#sidebarCollapse {
+    background: #646464;
+    border-radius: 0px 5px 5px 0px;
+    border-color: #aaaaaa; 
+    border-width: 5px 5px 5px 0px;
+    padding: 20px 5px;
+    opacity: 0.6;
+}
+
+#bt-container .btn-dark:hover, .btn-dark.hover {
+    color: green !important;
+    background: black !important;
+}
+
+.btn.active.focus,
+.btn.active:focus,
+.btn.focus,
+.btn.focus:active,
+.btn:active:focus,
+.btn:focus {
+  outline: 0 !important;
+  outline-offset: 0  !important;
+  background-image: none  !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none  !important;
+}
 
 /* ---------------------------------------------------
     CONTENT STYLE
@@ -94,37 +132,105 @@ a:focus {
     width: 100%;
 }
 
-#bt_container {
+/* ---------------------------------------------------
+    FILTER STYLE
+----------------------------------------------------- */
+
+:root {
+  --filter1-w: 50vmin;
+  --filter2-w: 50vmin;
+}
+
+#filter-container {
     position: absolute;
-    top: 50%;
-    z-index: 998;
+    width: 80vmin; 
+    height: calc(70vmin * 5 / 6);
+    overflow: hidden;
+    background: transparent;
+    box-shadow: -0.5em 1.25em 1em -.5em gray;
 }
 
-#sidebarCollapse {
-    background: #646464;
-    border-radius: 0px 5px 5px 0px;
-    border-color: #aaaaaa; 
-    border-width: 5px 5px 5px 0px;
-    padding: 20px 5px;
-    opacity: 0.6;
+#fimg {
+    transition: -webkit-transform 1s;
+    transition: transform 1s;
 }
 
-.btn-dark:hover, .btn-dark.hover {
-    color: green !important;
-    background: black !important;
+#filter-container:hover #fimg {
+    -webkit-transform: translateX(-5%);
+            transform: translateX(-5%);
+    transition-duration: 5s;
 }
 
-.btn.active.focus,
-.btn.active:focus,
-.btn.focus,
-.btn.focus:active,
-.btn:active:focus,
-.btn:focus {
-  outline: 0 !important;
-  outline-offset: 0  !important;
-  background-image: none  !important;
-  -webkit-box-shadow: none !important;
-  box-shadow: none  !important;
+@-webkit-keyframes filter-move {
+  50% {
+    -webkit-transform: translateX(var(--x1));
+            transform: translateX(var(--x1));
+  }
+  100% {
+    -webkit-transform: translateX(var(--x2));
+            transform: translateX(var(--x2));
+  }
+}
+
+@keyframes filter-move {
+  50% {
+    -webkit-transform: translateX(var(--x1));
+            transform: translateX(var(--x1));
+  }
+  100% {
+    -webkit-transform: translateX(var(--x2));
+            transform: translateX(var(--x2));
+  }
+}
+
+#filter1, #filter2, #filter3 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  -webkit-animation: .5s ease-out forwards;
+          animation: .5s ease-out forwards;
+  pointer-events: none;
+}
+
+#filter1 {
+    left: 100%;
+    width: var(--filter1-w);
+    background-color: #fff;
+    mix-blend-mode: exclusion;
+    --x1: -110vmin;
+    --x2: -46vmin;
+}
+
+#filter2 {
+  width: calc(var(--filter2-w) * 2);
+  left: calc(100% + var(--filter1-w));
+  background-color: rgba(0,0,0,0.8);
+  mix-blend-mode: saturation;
+  --x1: -110vmin;
+  --x2: -60vmin;
+}
+
+#filter3 {
+  width: 10vmin;
+  right: 100%;
+  background: rgba(0,0,0,0.8);
+  mix-blend-mode: saturation;
+  -webkit-animation-delay: .1s;
+          animation-delay: .1s;
+  --x1: 0;
+  --x2: 8vmin;
+}
+
+#filter-container:hover #filter1,
+#filter-container:hover #filter2,
+#filter-container:hover #filter3 {
+  -webkit-animation-name: filter-move;
+          animation-name: filter-move;
+}
+
+#filter-container .img-thumbnail {
+    border: none;
+    background: transparent;
 }
 /* ---------------------------------------------------
     MEDIAQUERIES
@@ -136,6 +242,12 @@ a:focus {
     }
     #sidebar.active {
         margin-left: 0;
+    }
+    #bt-container{
+        margin-left: -250px;
+    }
+    #bt-container.active {
+        margin-left: 250px;
     }
     #content {
         width: 100%;

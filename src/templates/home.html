@@ -1,5 +1,13 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
-{% block content %}
-<h1>Home</h1>
+{% block filter %}
+	<div class="mt-5" id="filter-container">
+		<div class="media d-flex align-items-center" id="fimg-box"><img src='{% static "/images/profile.jpeg" %}' alt="fImg" width="105%" id="fimg">
+		</div>
+
+		<div id="filter1"></div>
+		<div id="filter2"></div>
+		<div id="filter3"></div>
+	</div>
 {% endblock %}
