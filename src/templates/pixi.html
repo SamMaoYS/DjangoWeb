@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+	<canvas class="img-thumbnail" id="pixi-canvas"></canvas>
+	<script src='{% static "/js/pixi.js" %}'></script>
+	<script type="text/javascript">
+		const canvas = document.getElementById('pixi-canvas');
+		const app = new PIXI.Application({
+			view: canvas,
+			backgroundColor: 0x1099bb,
+			width: window.innerWidth,
+			height: window.innerHeight,
+		});
+
+		const texture = PIXI.Texture.from('{% static "/images/profile.jpeg" %}');
+		const img = new PIXI.Sprite(texture);
+		img.x = app.renderer.width/2;
+		img.y = app.renderer.height/2;
+		img.anchor.x = 0.5;
+		img.anchor.y = 0.5;
+		app.stage.addChild(img);
+	</script>
+{% endblock %}

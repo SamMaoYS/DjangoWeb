@@ -7,5 +7,5 @@ def home_view(request, *args, **kwargs):
     return render(request, "home.html", {"title": "Home"})
 
 
-def contact_view(request, *args, **kwargs):
-    return render(request, "home.html", {"title": "Contact"})
+def pixi_view(request, *args, **kwargs):
+    return render(request, "pixi.html", {"title": "PIXI"})

@@ -13,6 +13,11 @@ a:focus {
     transition: all 0.3s;
 }
 
+:root {
+  --filter1-w: 50vmin;
+  --filter2-w: 50vmin;
+}
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
@@ -136,11 +141,6 @@ a:focus {
     FILTER STYLE
 ----------------------------------------------------- */
 
-:root {
-  --filter1-w: 50vmin;
-  --filter2-w: 50vmin;
-}
-
 #filter-container {
     position: absolute;
     width: 80vmin; 
@@ -163,23 +163,23 @@ a:focus {
 
 @-webkit-keyframes filter-move {
   50% {
-    -webkit-transform: translateX(var(--x1));
-            transform: translateX(var(--x1));
+    -webkit-transform: translateX(var(--p1));
+            transform: translateX(var(--p1));
   }
   100% {
-    -webkit-transform: translateX(var(--x2));
-            transform: translateX(var(--x2));
+    -webkit-transform: translateX(var(--p2));
+            transform: translateX(var(--p2));
   }
 }
 
 @keyframes filter-move {
   50% {
-    -webkit-transform: translateX(var(--x1));
-            transform: translateX(var(--x1));
+    -webkit-transform: translateX(var(--p1));
+            transform: translateX(var(--p1));
   }
   100% {
-    -webkit-transform: translateX(var(--x2));
-            transform: translateX(var(--x2));
+    -webkit-transform: translateX(var(--p2));
+            transform: translateX(var(--p2));
   }
 }
 
@@ -197,8 +197,8 @@ a:focus {
     width: var(--filter1-w);
     background-color: #fff;
     mix-blend-mode: exclusion;
-    --x1: -110vmin;
-    --x2: -46vmin;
+    --p1: -110vmin;
+    --p2: -46vmin;
 }
 
 #filter2 {
@@ -206,8 +206,8 @@ a:focus {
   left: calc(100% + var(--filter1-w));
   background-color: rgba(0,0,0,0.8);
   mix-blend-mode: saturation;
-  --x1: -110vmin;
-  --x2: -60vmin;
+  --p1: -110vmin;
+  --p2: -60vmin;
 }
 
 #filter3 {
@@ -217,8 +217,8 @@ a:focus {
   mix-blend-mode: saturation;
   -webkit-animation-delay: .1s;
           animation-delay: .1s;
-  --x1: 0;
-  --x2: 8vmin;
+  --p1: 0;
+  --p2: 8vmin;
 }
 
 #filter-container:hover #filter1,
