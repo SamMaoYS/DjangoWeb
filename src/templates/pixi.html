@@ -12,6 +12,7 @@
 		    loader = PIXI.Loader.shared,
 		    resources = PIXI.loader.resources,
 		    Rectangle = PIXI.Rectangle,
+		    TextureCache = PIXI.utils.TextureCache,
 		    Sprite = PIXI.Sprite;
 
 		const app = new Application({                    
@@ -21,30 +22,43 @@
 		});
 
 		loader
-		  	.add('{% static "/images/sprite-test.json" %}')
+		  	.add('{% static "/images/sprite-game.json" %}')
 		 	.load(setup);
 
-		let id, background, door, jevil, sans, pony;
+		let imgs, background, door, player, pirate, big, cucumber, captain;
 		function setup() {
-  			id = resources['{% static "/images/sprite-test.json" %}'].textures; 
-  			background = new Sprite(id["sprite-background.png"]);
-  			background.scale.set(0.6,0.6);
+			let rectangle = new Rectangle(0, 97, 190, 190);
+
+  			imgs = resources['{% static "/images/sprite-game.json" %}'].textures; 
+  			let backTexture = TextureCache["Tile-Sets.png"];
+  			backTexture.frame = rectangle;
+  			background = new Sprite(backTexture);
+  			background.scale.set(3,3);
   			app.stage.addChild(background);
 
-  			door = new Sprite(id["sprite-door.jpg"]);
+  			door = new Sprite(imgs["door.png"]);
+  			door.position.set(400,100);
   			app.stage.addChild(door);
 
-  			jevil = new Sprite(id["sprite-jevil.jpg"]);
-  			jevil.position.set(100,100);
-  			app.stage.addChild(jevil);
+  			player = new Sprite(imgs["player.png"]);
+  			player.position.set(100,100);
+  			app.stage.addChild(player);
 
-  			sans = new Sprite(id["sprite-sans.jpg"]);
-  			sans.position.set(300,100);
-  			app.stage.addChild(sans);
+  			pirate = new Sprite(imgs["pirate.png"]);
+  			pirate.position.set(300,100);
+  			app.stage.addChild(pirate);
 
-  			pony = new Sprite(id["sprite-pony.jpg"]);
-  			pony.position.set(300,400);
-  			app.stage.addChild(pony);
+  			big = new Sprite(imgs["big.png"]);
+  			big.position.set(300,400);
+  			app.stage.addChild(big);
+
+  			cucumber = new Sprite(imgs["cucumber.png"]);
+  			cucumber.position.set(400,400);
+  			app.stage.addChild(cucumber);
+
+  			captain = new Sprite(imgs["captain.png"]);
+  			captain.position.set(500,400);
+  			app.stage.addChild(captain);
 		}
 
 		console.log(app.renderer.width);
