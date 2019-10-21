@@ -2,23 +2,52 @@
 {% load staticfiles %}
 
 {% block content %}
-	<canvas class="img-thumbnail" id="pixi-canvas"></canvas>
+	<canvas style="width: 100vmin; height: 80vmin; background: black;" id="pixi-canvas"></canvas>
 	<script src='{% static "/js/pixi.js" %}'></script>
 	<script type="text/javascript">
 		const canvas = document.getElementById('pixi-canvas');
-		const app = new PIXI.Application({
-			view: canvas,
+
+		//Aliases
+		let Application = PIXI.Application,
+		    loader = PIXI.Loader.shared,
+		    resources = PIXI.loader.resources,
+		    Rectangle = PIXI.Rectangle,
+		    Sprite = PIXI.Sprite;
+
+		const app = new Application({                    
+		    view: canvas,
+		    antialias: true,
 			backgroundColor: 0x1099bb,
-			width: window.innerWidth,
-			height: window.innerHeight,
 		});
 
-		const texture = PIXI.Texture.from('{% static "/images/profile.jpeg" %}');
-		const img = new PIXI.Sprite(texture);
-		img.x = app.renderer.width/2;
-		img.y = app.renderer.height/2;
-		img.anchor.x = 0.5;
-		img.anchor.y = 0.5;
-		app.stage.addChild(img);
+		loader
+		  	.add('{% static "/images/sprite-test.json" %}')
+		 	.load(setup);
+
+		let id, background, door, jevil, sans, pony;
+		function setup() {
+  			id = resources['{% static "/images/sprite-test.json" %}'].textures; 
+  			background = new Sprite(id["sprite-background.png"]);
+  			background.scale.set(0.6,0.6);
+  			app.stage.addChild(background);
+
+  			door = new Sprite(id["sprite-door.jpg"]);
+  			app.stage.addChild(door);
+
+  			jevil = new Sprite(id["sprite-jevil.jpg"]);
+  			jevil.position.set(100,100);
+  			app.stage.addChild(jevil);
+
+  			sans = new Sprite(id["sprite-sans.jpg"]);
+  			sans.position.set(300,100);
+  			app.stage.addChild(sans);
+
+  			pony = new Sprite(id["sprite-pony.jpg"]);
+  			pony.position.set(300,400);
+  			app.stage.addChild(pony);
+		}
+
+		console.log(app.renderer.width);
+		console.log(app.renderer.height);
 	</script>
 {% endblock %}
