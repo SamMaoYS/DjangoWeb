@@ -2,7 +2,7 @@
 
 "big.png":
 {
-	"frame": {"x":0,"y":0,"w":77,"h":74},
+	"frame": {"x":80,"y":110,"w":77,"h":74},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":77,"h":74},
@@ -10,15 +10,23 @@
 },
 "captain.png":
 {
-	"frame": {"x":77,"y":0,"w":80,"h":72},
+	"frame": {"x":0,"y":110,"w":80,"h":72},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":80,"h":72},
 	"sourceSize": {"w":80,"h":72}
 },
+"center.png":
+{
+	"frame": {"x":78,"y":206,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
 "cucumber.png":
 {
-	"frame": {"x":157,"y":0,"w":64,"h":68},
+	"frame": {"x":189,"y":42,"w":64,"h":68},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":68},
@@ -26,7 +34,7 @@
 },
 "door.png":
 {
-	"frame": {"x":221,"y":0,"w":78,"h":96},
+	"frame": {"x":0,"y":206,"w":78,"h":96},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":78,"h":96},
@@ -34,7 +42,7 @@
 },
 "pirate.png":
 {
-	"frame": {"x":299,"y":0,"w":63,"h":67},
+	"frame": {"x":126,"y":42,"w":63,"h":67},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":63,"h":67},
@@ -42,23 +50,31 @@
 },
 "player.png":
 {
-	"frame": {"x":362,"y":0,"w":58,"h":58},
+	"frame": {"x":68,"y":42,"w":58,"h":58},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":58,"h":58},
 	"sourceSize": {"w":58,"h":58}
 },
-"Tile-Sets.png":
+"side.png":
 {
-	"frame": {"x":0,"y":96,"w":384,"h":320},
+	"frame": {"x":157,"y":110,"w":67,"h":96},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":320},
-	"sourceSize": {"w":384,"h":320}
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":96},
+	"sourceSize": {"w":67,"h":96}
+},
+"top.png":
+{
+	"frame": {"x":0,"y":0,"w":187,"h":42},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":187,"h":42},
+	"sourceSize": {"w":187,"h":42}
 },
 "whale.png":
 {
-	"frame": {"x":384,"y":96,"w":68,"h":46},
+	"frame": {"x":0,"y":42,"w":68,"h":46},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":68,"h":46},
@@ -69,8 +85,8 @@
 	"version": "1.0",
 	"image": "sprite-game.png",
 	"format": "RGBA8888",
-	"size": {"w":452,"h":416},
+	"size": {"w":253,"h":334},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:20551240aeabff2c75477c3c843d14f6:ba1ef71a7c971a977aac75ab2cc54c97:129f6caae2e9429cf56c9eca6c25c535$"
+	"smartupdate": "$TexturePacker:SmartUpdate:887d61463c86362a0b9c7e7969203b62:edca4e3032ef070920d53a9248497125:129f6caae2e9429cf56c9eca6c25c535$"
 }
 }

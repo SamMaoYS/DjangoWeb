@@ -25,16 +25,20 @@
 		  	.add('{% static "/images/sprite-game.json" %}')
 		 	.load(setup);
 
-		let imgs, background, door, player, pirate, big, cucumber, captain;
+		let imgs, backCenter, backSide, backTop, door, player, pirate, big, cucumber, captain;
 		function setup() {
-			let rectangle = new Rectangle(0, 97, 190, 190);
-
-  			imgs = resources['{% static "/images/sprite-game.json" %}'].textures; 
-  			let backTexture = TextureCache["Tile-Sets.png"];
-  			backTexture.frame = rectangle;
-  			background = new Sprite(backTexture);
-  			background.scale.set(3,3);
-  			app.stage.addChild(background);
+			let spriteAttr = JSON.parse('{{json | escapejs}}');
+			let centerW = spriteAttr.frames["center.png"].spriteSourceSize.w;
+			let centerH = spriteAttr.frames["center.png"].spriteSourceSize.h;
+  			imgs = resources['{% static "/images/sprite-game.json" %}'].textures;
+  			for (let i = 0; centerW*i < canvas.width; i++) {
+  				for (let j=0; centerH*j < canvas.height; j++) {
+					backCenter = new Sprite(imgs["center.png"]);
+					backCenter.position.set(centerW * i, centerH * j);
+					app.stage.addChild(backCenter);
+				}
+  			}
+  			
 
   			door = new Sprite(imgs["door.png"]);
   			door.position.set(400,100);
