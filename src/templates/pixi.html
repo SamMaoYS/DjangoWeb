@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
+{% load static %}
 
 {% block navActive %}
 <li class="nav-item" id="home">
@@ -17,192 +17,52 @@
 {% endblock %}
 
 {% block content %}
-<canvas style="width: 100vmin; height: 80vmin; background: black;" id="pixi-canvas"></canvas>
+<div class="mt-5"><canvas style="width: 100vmin; height: 80vmin; background: black;" id="pixi-canvas"></canvas></div>
 <script src='{% static "/js/pixi.js" %}'></script>
 <script type="text/javascript">
+ 	DJANGO_STATIC_URL = '{{ STATIC_URL }}';
 	const canvas = document.getElementById('pixi-canvas');
 
 	//Aliases
 	let Application = PIXI.Application,
-		loader = PIXI.Loader.shared,
-		resources = PIXI.loader.resources,
-		Rectangle = PIXI.Rectangle,
-		TextureCache = PIXI.utils.TextureCache,
-		Sprite = PIXI.Sprite;
+	    loader = PIXI.Loader.shared,
+	    resources = PIXI.loader.resources,
+	    Rectangle = PIXI.Rectangle,
+	    TextureCache = PIXI.utils.TextureCache,
+	    Sprite = PIXI.Sprite,
+	    AnimatedSprite = PIXI.extras.AnimatedSprite,
+	    Container = PIXI.Container;
 
 	const app = new Application({
-		view: canvas,
-		antialias: true,
-		backgroundColor: 0x1099bb,
+	    view: canvas,
+	    antialias: true,
+	    backgroundColor: 0x1099bb,
 	});
 
+	let sprite_game_json_path = '{% static "/images/sprite-game.json" %}';
+	let bigguy_json_path = '{% static "/images/sprite/bigguy.json" %}';
+	let bombguy_json_path = '{% static "/images/sprite/bombguy.json" %}';
+	let captain_json_path = '{% static "/images/sprite/captain.json" %}';
+	let cucumber_json_path = '{% static "/images/sprite/cucumber.json" %}';
+	let pirate_json_path = '{% static "/images/sprite/pirate.json" %}';
+	let whale_json_path = '{% static "/images/sprite/whale.json" %}';
+
 	loader
-		.add('{% static "/images/sprite-game.json" %}')
-		.load(setup);
+		.add(sprite_game_json_path)
+	    .add(bigguy_json_path)
+	    .add(bombguy_json_path)
+	    .add(captain_json_path)
+	    .add(cucumber_json_path)
+	    .add(pirate_json_path)
+	    .add(whale_json_path);
 
-	let imgs, backCenter, backSide, backTop, door, player, pirate, big, cucumber, captain;
-	let state;
-	let spriteAttr = JSON.parse('{{json | escapejs}}');
-
-	function setup() {
-		let centerW = spriteAttr.frames["center.png"].spriteSourceSize.w;
-		let centerH = spriteAttr.frames["center.png"].spriteSourceSize.h;
-		imgs = resources['{% static "/images/sprite-game.json" %}'].textures;
-		for (let i = 0; centerW * i < canvas.width; i++) {
-			for (let j = 0; centerH * j < canvas.height; j++) {
-				backCenter = new Sprite(imgs["center.png"]);
-				backCenter.position.set(centerW * i, centerH * j);
-				app.stage.addChild(backCenter);
-			}
-		}
-
-		door = new Sprite(imgs["door.png"]);
-		door.position.set(400, 100);
-		app.stage.addChild(door);
-
-		player = new Sprite(imgs["player.png"]);
-		player.name = "player";
-		player.position.set(100, 100);
-		player.vx = 0;
-		player.vy = 0;
-		app.stage.addChild(player);
-		let pKeyCtr = PlayKeyControl(player);
-
-		pirate = new Sprite(imgs["pirate.png"]);
-		pirate.position.set(300, 100);
-		app.stage.addChild(pirate);
-
-		big = new Sprite(imgs["big.png"]);
-		big.position.set(300, 400);
-		app.stage.addChild(big);
-
-		cucumber = new Sprite(imgs["cucumber.png"]);
-		cucumber.position.set(400, 400);
-		app.stage.addChild(cucumber);
-
-		captain = new Sprite(imgs["captain.png"]);
-		captain.position.set(500, 400);
-		app.stage.addChild(captain);
-
-		//Set game state
-		state = play;
-
-		app.ticker.add(delta => gameloop(delta));
-	}
-
-	function gameloop(delta) {
-		state(delta);
-	}
-
-	function play(delta) {
-		player.x += player.vx;
-		player.y += player.vy;
-	}
-
-	function keyboard(value) {
-		let key = {};
-		key.value = value;
-		key.isDown = false;
-		key.isUp = true;
-		key.press = undefined;
-		key.release = undefined;
-		//The `downHandler`
-		key.downHandler = event => {
-			if (event.key === key.value) {
-				if (key.isUp && key.press) key.press();
-				key.isDown = true;
-				key.isUp = false;
-				event.preventDefault();
-			}
-		};
-
-		//The `upHandler`
-		key.upHandler = event => {
-			if (event.key === key.value) {
-				if (key.isDown && key.release) key.release();
-				key.isDown = false;
-				key.isUp = true;
-				event.preventDefault();
-			}
-		};
-
-		//Attach event listeners
-		const downListener = key.downHandler.bind(key);
-		const upListener = key.upHandler.bind(key);
-
-		window.addEventListener(
-			"keydown", downListener, false
-		);
-		window.addEventListener(
-			"keyup", upListener, false
-		);
-
-		// Detach event listeners
-		key.unsubscribe = () => {
-			window.removeEventListener("keydown", downListener);
-			window.removeEventListener("keyup", upListener);
-		};
-
-		return key;
-	}
-
-	function PlayKeyControl(spriteObj) {
-		let left = keyboard("ArrowLeft"),
-			up = keyboard("ArrowUp"),
-			right = keyboard("ArrowRight"),
-			down = keyboard("ArrowDown");
-
-		let objW = spriteAttr.frames[spriteObj.name + ".png"].spriteSourceSize.w;
-		left.press = () => {
-			spriteObj.vx = -5;
-			spriteObj.vy = 0;
-			if (spriteObj.scale.x != -1) {
-				spriteObj.scale.x = -1;
-				spriteObj.position.x += objW;
-			}
-		};
-		left.release = () => {
-			if (!right.isDown && spriteObj.vy === 0) {
-				spriteObj.vx = 0;
-			}
-		};
-
-		up.press = () => {
-			spriteObj.vy = -5;
-			spriteObj.vx = 0;
-		};
-		up.release = () => {
-			if (!down.isDown && spriteObj.vx === 0) {
-				spriteObj.vy = 0;
-			}
-		};
-
-		right.press = () => {
-			spriteObj.vx = 5;
-			spriteObj.vy = 0;
-			if (spriteObj.scale.x != 1) {
-				spriteObj.scale.x = 1;
-				spriteObj.position.x -= objW;
-			}
-		};
-		right.release = () => {
-			if (!left.isDown && spriteObj.vy === 0) {
-				spriteObj.vx = 0;
-			}
-		};
-
-		down.press = () => {
-			spriteObj.vy = 5;
-			spriteObj.vx = 0;
-		};
-		down.release = () => {
-			if (!up.isDown && spriteObj.vx === 0) {
-				spriteObj.vy = 0;
-			}
-		};
-	}
-
-	console.log(app.renderer.width);
-	console.log(app.renderer.height);
+	let gameAttr = JSON.parse('{{game | escapejs}}');
+	let bigguyAttr = JSON.parse('{{bigguy | escapejs}}');
+	let bombguyAttr = JSON.parse('{{bombguy | escapejs}}');
+	let captainAttr = JSON.parse('{{captain | escapejs}}');
+	let cucumberAttr = JSON.parse('{{cucumber | escapejs}}');
+	let pirateAttr = JSON.parse('{{pirate | escapejs}}');
+	let whaleAttr = JSON.parse('{{whale | escapejs}}');
 </script>
+<script type="text/javascript" src='{% static "/js/pixi_game.js" %}'></script>
 {% endblock %}
