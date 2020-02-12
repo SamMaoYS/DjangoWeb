@@ -140,13 +140,18 @@ a:focus {
 /* ---------------------------------------------------
     FILTER STYLE
 ----------------------------------------------------- */
+#filter-window {
+    width: 100%;
+}
 
 #filter-container {
     position: absolute;
+    left: 50%;
+    margin-left: -40vmin;
     width: 80vmin;
     height: calc(70vmin * 5 / 6);
     overflow: hidden;
-    background: transparent;
+    background: white;
     box-shadow: -0.5em 1.25em 1em -.5em gray;
 }
 
@@ -231,6 +236,14 @@ a:focus {
 #filter-container .img-thumbnail {
     border: none;
     background: transparent;
+}
+
+#filter-link {
+    position: absolute;
+    left: 50%;
+    margin-left: -40vmin;
+    top: 65vmin;
+    width: 80vmin;
 }
 /* ---------------------------------------------------
     MEDIAQUERIES
