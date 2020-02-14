@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navActive %}
+<li class="nav-item" id="home">
+	<a href="/">Home</a>
+</li>
+<li class="nav-item" id="about">
+	<a href="#">About</a>
+</li>
+<li class="nav-item active" id="portfolio">
+	<a href="/portfolio">Portfolio</a>
+</li>
+<li class="nav-item" id="contact">
+	<a href="#">Contact</a>
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="text-monospace" id="card-container">
+    <div class="card bg-secondary mt-5" id="portfolio_card">
+        <div id="media-card" class="media">
+            <a href="/filter-effect">
+                <img src='{% static "/images/filter-effect-card.png" %}' alt="filter-effect-card" width="100%" ></img>
+            </a>
+        </div>
+
+      <div class="card-body" style="color: #d9d9d9" id="portfolio_card_body">
+        <h5 class="card-title font-weight-bold">Filter Effect</h5>
+        <p class="card-text">With CSS keyframes movement, using three rectangles as filters to filter the target image,
+            to generate a visually pleasing effect.</p>
+        <a href="/filter-effect" class="btn btn-dark">Go to Filter Effect</a>
+      </div>
+    </div>
+    <div class="card bg-secondary mt-5 mb-5" id="portfolio_card">
+        <div id="media-card" class="media">
+            <a href="/sprite-game">
+                <img src='{% static "/images/sprite-game-card.png" %}' alt="sprite-game-card" width="100%"></img>
+            </a>
+        </div>
+
+      <div class="card-body" style="color: #d9d9d9" id="portfolio_card_body">
+        <h5 class="card-title font-weight-bold">Sprite Game</h5>
+        <p class="card-text">With PIXI.JS framework, loading each sprite from a single png file corresponding to a json file.
+            By pushing a set of images into a texture buffer, animate each sprite, with the keyboard control to switch to another
+            animation movement.</p>
+        <a href="//sprite-game" class="btn btn-dark">Go to Sprite Game</a>
+      </div>
+    </div>
+</div>
+{% endblock %}

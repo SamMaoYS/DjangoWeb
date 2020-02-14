@@ -1,20 +1,5 @@
-{% extends 'base.html' %}
+{% extends 'portfolio.html' %}
 {% load static %}
-
-{% block navActive %}
-<li class="nav-item" id="home">
-	<a href="/">Home</a>
-</li>
-<li class="nav-item" id="about">
-	<a href="#">About</a>
-</li>
-<li class="nav-item active" id="portfolio">
-	<a href="/pixi">Portfolio</a>
-</li>
-<li class="nav-item" id="contact">
-	<a href="#">Contact</a>
-</li>
-{% endblock %}
 
 {% block content %}
 <div class="mt-5"><canvas style="width: 100vmin; height: 80vmin; background: black;" id="pixi-canvas"></canvas></div>

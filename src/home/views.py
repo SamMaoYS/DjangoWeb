@@ -5,8 +5,13 @@ import json
 def home_view(request):
     return render(request, "home.html", {"title": "Home"})
 
+def portfolio_view(request):
+    return render(request, "portfolio.html", {"title": "Portfolio"})
 
-def pixi_view(request):
+def filter_effect_view(request):
+    return render(request, "filter_effect.html", {"title": "Filter Effect"})
+
+def sprite_game_view(request):
     game = open('./static/images/sprite-game.json')
     game_data1 = json.load(game)
     game_data2 = json.dumps(game_data1)
@@ -42,8 +47,8 @@ def pixi_view(request):
     whale_data2 = json.dumps(whale_data1)
     whale.close()
 
-    context = {"title": "PIXI", "game": game_data2, "bigguy": bigguy_data2,
+    context = {"title": "Sprite Game", "game": game_data2, "bigguy": bigguy_data2,
             "bombguy": bombguy_data2, "captain": captain_data2,
             "cucumber": cucumber_data2, "pirate": pirate_data2, "whale": whale_data2}
 
-    return render(request, "pixi.html", context)
+    return render(request, "sprite_game.html", context)
