@@ -130,7 +130,6 @@ a:focus {
     position: absolute;
     top: 0;
     right: 0;
-    background: white;
 }
 
 #content.active {
@@ -140,13 +139,18 @@ a:focus {
 /* ---------------------------------------------------
     FILTER STYLE
 ----------------------------------------------------- */
+#filter-window {
+    width: 100%;
+}
 
 #filter-container {
     position: absolute;
+    left: 50%;
+    margin-left: -40vmin;
     width: 80vmin;
     height: calc(70vmin * 5 / 6);
     overflow: hidden;
-    background: transparent;
+    background: white;
     box-shadow: -0.5em 1.25em 1em -.5em gray;
 }
 
@@ -232,6 +236,30 @@ a:focus {
     border: none;
     background: transparent;
 }
+
+#filter-link {
+    position: absolute;
+    left: 50%;
+    margin-left: -40vmin;
+    top: 65vmin;
+    width: 80vmin;
+}
+
+#portfolio_card {
+    width: 30rem;
+}
+
+#media-card {
+    width: 100%;
+    height:22rem;
+}
+
+#media-card img{
+    position: absolute;
+    width: 100%;
+    clip: rect(0, 30rem, 22rem, 0);
+}
+
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */

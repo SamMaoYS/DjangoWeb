@@ -1,0 +1,53 @@
+{% extends 'portfolio.html' %}
+{% load static %}
+
+{% block content %}
+<div class="mt-5"><canvas style="width: 100vmin; height: 80vmin; background: black;" id="pixi-canvas"></canvas></div>
+<script src='{% static "/js/pixi.js" %}'></script>
+<script type="text/javascript">
+ 	DJANGO_STATIC_URL = '{{ STATIC_URL }}';
+	const canvas = document.getElementById('pixi-canvas');
+
+	//Aliases
+	let Application = PIXI.Application,
+	    loader = PIXI.Loader.shared,
+	    resources = PIXI.loader.resources,
+	    Rectangle = PIXI.Rectangle,
+	    TextureCache = PIXI.utils.TextureCache,
+	    Sprite = PIXI.Sprite,
+	    AnimatedSprite = PIXI.extras.AnimatedSprite,
+	    Container = PIXI.Container;
+
+	const app = new Application({
+	    view: canvas,
+	    antialias: true,
+	    backgroundColor: 0x1099bb,
+	});
+
+	let sprite_game_json_path = '{% static "/images/sprite-game.json" %}';
+	let bigguy_json_path = '{% static "/images/sprite/bigguy.json" %}';
+	let bombguy_json_path = '{% static "/images/sprite/bombguy.json" %}';
+	let captain_json_path = '{% static "/images/sprite/captain.json" %}';
+	let cucumber_json_path = '{% static "/images/sprite/cucumber.json" %}';
+	let pirate_json_path = '{% static "/images/sprite/pirate.json" %}';
+	let whale_json_path = '{% static "/images/sprite/whale.json" %}';
+
+	loader
+		.add(sprite_game_json_path)
+	    .add(bigguy_json_path)
+	    .add(bombguy_json_path)
+	    .add(captain_json_path)
+	    .add(cucumber_json_path)
+	    .add(pirate_json_path)
+	    .add(whale_json_path);
+
+	let gameAttr = JSON.parse('{{game | escapejs}}');
+	let bigguyAttr = JSON.parse('{{bigguy | escapejs}}');
+	let bombguyAttr = JSON.parse('{{bombguy | escapejs}}');
+	let captainAttr = JSON.parse('{{captain | escapejs}}');
+	let cucumberAttr = JSON.parse('{{cucumber | escapejs}}');
+	let pirateAttr = JSON.parse('{{pirate | escapejs}}');
+	let whaleAttr = JSON.parse('{{whale | escapejs}}');
+</script>
+<script type="text/javascript" src='{% static "/js/pixi_game.js" %}'></script>
+{% endblock %}
